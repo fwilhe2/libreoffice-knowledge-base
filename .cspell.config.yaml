@@ -1,0 +1,12 @@
+version: "0.2"
+dictionaries:
+  - de-de
+  - en_US
+ignoreWords: []
+import:
+  - "@cspell/dict-de-de/cspell-ext.json"
+language: de, de_DE, en
+words:
+  - debian
+  - pandoc
+  - podman

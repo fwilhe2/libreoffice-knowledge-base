@@ -1,0 +1,16 @@
+name: Build Document
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - run: make
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: build
+          path: build

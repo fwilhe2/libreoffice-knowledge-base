@@ -1,0 +1,23 @@
+name: 'Check spelling'
+on:
+  push:
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: npm install -D @cspell/dict-de-de
+      - uses: streetsidesoftware/cspell-action@v8
+        with:
+          files: |
+            README.md
+            doc/**/*.md
+          root: '.'
+          inline: warning
+          suggestions: false
+          strict: false
+          config: '.cspell.config.yaml'
+          verbose: true
+          report: all
+          incremental_files_only: false

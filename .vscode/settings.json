@@ -1,0 +1,15 @@
+{
+  "editor.wordWrap": "on",
+  "editor.quickSuggestions": {
+    "comments": "on",
+    "strings": "on",
+    "other": "on"
+  },
+  "markdownlint.config": {
+    "MD013": false // Disable line length limits
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+    "editor.formatOnSave": true
+  }
+}
