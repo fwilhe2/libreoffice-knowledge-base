@@ -1,5 +1,8 @@
 # LibreOffice Knowledge Base
 
+My missing manual on [LibreOffice](https://www.libreoffice.org/).
+Check also the [LibreOffice Bookshelf](https://books.libreoffice.org/en/).
+
 ## Tables
 
 While LibreOffice Calc does not have a single ["Format as Table" command identical to
