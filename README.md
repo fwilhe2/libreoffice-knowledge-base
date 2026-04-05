@@ -130,3 +130,46 @@ not automatically inherit banded formatting. You have two options:
   Because this formula is tied to row numbers rather than static formatting, any new
   row added within the range automatically receives the correct stripe color — no
   manual reapplication needed.
+
+### 7. SUBTOTAL for Total Row
+
+The `SUBTOTAL` function is essentially a "smart" aggregator. Unlike standard functions (like `SUM` or `AVERAGE`), `SUBTOTAL` recognizes when data has been hidden or filtered and adjusts the result accordingly. It also avoids "double counting" by ignoring any other `SUBTOTAL` formulas it finds within its range—making it the go-to choice for grand totals.
+
+#### Syntax
+
+`=SUBTOTAL(FunctionIndex; Range)`
+
+#### The First Parameter: FunctionIndex
+
+The index number determines two things: which math operation to perform and how to treat hidden data. There are two "series" of numbers: **1–11** and **101–111**.
+
+| Operation | Include Manually Hidden (1–11) | Exclude Manually Hidden (101–111) |
+| :--- | :---: | :---: |
+| **AVERAGE** | 1 | 101 |
+| **COUNT** (Numbers) | 2 | 102 |
+| **COUNTA** (Text/All) | 3 | 103 |
+| **MAX** | 4 | 104 |
+| **MIN** | 5 | 105 |
+| **SUM** | 9 | 109 |
+
+#### The "Hidden Data" Nuance
+
+The most common point of confusion is the distinction between **Filtered** rows and **Manually Hidden** rows.
+
+* **Filtered Rows:** Both series (1–11 and 101–111) **ignore** rows that have been hidden by an AutoFilter. If the filter hides it, it isn't counted.
+* **Manually Hidden Rows:** Only the 100-series (101–111) will ignore rows you’ve hidden by right-clicking or setting the row height to zero. The 1-series will still include that data in its calculation.
+
+**Visual Cheat Sheet:**
+
+* **Filter applied?** Both exclude the data.
+* **Right-click -> Hide?** Only 101+ excludes the data.
+
+#### Key Technical Constraints
+
+* **Vertical Only:** `SUBTOTAL` is designed for columns. It calculates based on hidden **rows**. If you hide a **column**, the function will still include those values regardless of which index number you use.
+* **Anti-Nesting:** If your range (e.g., `A1:A100`) contains other `SUBTOTAL` functions, they are automatically ignored. This allows you to have several sub-group totals and a single "Grand Total" at the bottom without the numbers doubling or tripling.
+* **Error Handling:** If any cell in the range contains an error, the `SUBTOTAL` result will also return an error.
+
+#### Pro-Tip
+
+When in doubt, use the **109** (Sum) or **101** (Average) variants. In most modern reporting, you rarely want to include data you've gone through the trouble of hiding.
